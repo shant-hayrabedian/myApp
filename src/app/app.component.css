@@ -1,0 +1,11 @@
+/* :host ::ng-deep .card {*/
+/*  background: red;*/
+/*}*/
+.nav {
+  margin-bottom: 15px;
+}
+app-navbar {
+  width: 100%;
+}
+
+
