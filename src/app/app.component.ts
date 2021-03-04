@@ -25,6 +25,14 @@ import {animate, group, query, style, transition, trigger} from '@angular/animat
               transform: 'translateX(100%)'
             })),
           ]),
+          query(':leave', [
+            style({
+              transform: 'translateX(100%)'
+            }),
+            animate(500, style({
+              transform: 'translateX(0)'
+            })),
+          ]),
         ]),
       ]),
     ]),

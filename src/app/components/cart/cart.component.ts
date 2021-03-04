@@ -23,6 +23,7 @@ export class CartComponent implements OnInit {
         };
       });
     });
+    this.totalAmounts();
   }
 
   public delete(index) {
@@ -33,7 +34,7 @@ export class CartComponent implements OnInit {
     this.cartService.updateCart(this.cart[index].id, this.cart[index].amount);
   }
 
-  total() {
+  public total() {
     let sum = 0;
     for (const p in this.cart) {
       sum += this.cart[p].price;
@@ -41,4 +42,23 @@ export class CartComponent implements OnInit {
     return sum;
   }
 
+  public totalCards() {
+    const arr = this.cart.reduce((aggr, val, i) => {
+      aggr[i] = val.price * val.amount;
+      return aggr;
+    }, []);
+    return arr.reduce((a, b) => {
+      return a + b;
+    }, 0);
+  }
+
+  public totalAmounts() {
+    const arr = this.cart.reduce((aggr, val, i) => {
+      aggr[i] =  val.amount;
+      return aggr;
+    }, []);
+    return arr.reduce((a, b) => {
+      return a + b;
+    }, 0);
+  }
 }

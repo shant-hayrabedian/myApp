@@ -3,5 +3,5 @@ export interface Shopping {
   name?: string;
   price?: number;
   amount?: number;
-  total?: number;
+  // total?: number;
 }

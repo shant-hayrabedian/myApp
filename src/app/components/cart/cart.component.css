@@ -1,3 +1,25 @@
 .container {
   margin-top: 24px;
 }
+.total {
+  margin-left: 155px;
+  font-size: 20px;
+}
+.totalPrices {
+  font-size: 20px;
+}
+
+.totalAmounts {
+  font-size: 20px;
+  margin-left: 30px
+}
+
+.deleteButton {
+  margin-left: 10px;
+}
+.amountMargin {
+  margin-left: 50px
+}
+.amountInput {
+  width: 53%;
+}

@@ -17,6 +17,14 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { CalendarComponent } from './components/calendar/calendar.component';
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -27,7 +35,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     LoginComponent,
     SignupComponent,
     NotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +57,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       messagingSenderId: '559269595162',
       appId: '1:559269595162:web:3714c1f90b2cddf24969a3',
       measurementId: 'G-WPK45SBX22'
-    })
+    }),
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

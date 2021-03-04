@@ -13,20 +13,22 @@
         <td>{{good.name}}</td>
         <td>{{good.price | currency}}</td>
         <td>
-          <input type="number" placeholder="Amount (kg)" [(ngModel)]="good.amount">
+          <input class="form-control amountInput"  type="number" placeholder="Amount (kg)" [(ngModel)]="good.amount">
         </td>
         <td>{{(good.price * good.amount) | currency}}</td>
         <td>
           <button class="btn btn-primary" (click)="save(i)">Save</button>
-          <button class="btn btn-danger" (click)="delete(i)">Delete</button>
+          <button class="btn btn-danger deleteButton" (click)="delete(i)">Delete</button>
         </td>
 
       </tr>
       </tbody>
     </table>
-    <span>Your Total Price Is: </span>
-    <h1>{{total()}}</h1><br>
-
+    <p class="badge bg-success totalPrices">Your Cart Prices Are: {{total()}}</p>
+    <p class="badge bg-success totalAmounts">Total Amount Are: {{totalAmounts()}}</p>
+    <p class="badge bg-primary total">Your Total Is: {{totalCards()}}</p>
   </div>
 </div>
-<!--<h2 *ngFor="let good of cart">{{good.total}}</h2>-->
+<div>
+</div>
+

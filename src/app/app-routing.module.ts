@@ -9,6 +9,7 @@ import {GoodsComponent} from './components/goods/goods.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {AuthGuard} from './guards/auth.guard';
 import {UserGuard} from './guards/user.guard';
+import {CalendarComponent} from './components/calendar/calendar.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent, canActivate: [UserGuard], data: {index: 4}},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuard], data: {index: 1}},
   {path: 'admin', component: GoodsComponent, data: {index: 2}},
+  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard], data: {index: 0}},
   {path: '**', component: NotFoundComponent},
 ];
 
