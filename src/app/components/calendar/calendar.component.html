@@ -1,6 +1,5 @@
 
 <div class="alert alert-primary" role="alert">
-  <p>{{todayDate()}}</p>
+  <p>Todays Date Is: {{ birthday | date }}{{todayDate()}}</p>
 </div>
 <full-calendar [options]="calendarOptions"></full-calendar>
-

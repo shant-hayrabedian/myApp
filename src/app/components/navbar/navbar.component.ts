@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit , OnDestroy {
   isOpen = false;
   isUser = false;
   isAdmin = false;
+  private unsubscribe$: Subject<any> = new Subject<any>();
 
   constructor(private as: AuthService, private userService: UserService) { }
 
@@ -20,7 +23,7 @@ export class NavbarComponent implements OnInit {
       if (user) {
         this.isUser = true;
         this.as.userId = user.uid;
-        this.userService.getUserData().subscribe( data => {
+        this.userService.getUserData().pipe(takeUntil(this.unsubscribe$)).subscribe( data => {
           if (data['admin']) {
             this.isAdmin = true;
           }
@@ -30,6 +33,10 @@ export class NavbarComponent implements OnInit {
         this.as.userId = '';
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
   }
 
   public toggleNavbar() {

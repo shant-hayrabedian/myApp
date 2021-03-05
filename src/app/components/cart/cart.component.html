@@ -13,7 +13,7 @@
         <td>{{good.name}}</td>
         <td>{{good.price | currency}}</td>
         <td>
-          <input class="form-control amountInput"  type="number" placeholder="Amount (kg)" [(ngModel)]="good.amount">
+          <input class="form-control amountInput" (keyup.enter)="save(i)" type="number" placeholder="Amount (kg)" [(ngModel)]="good.amount">
         </td>
         <td>{{(good.price * good.amount) | currency}}</td>
         <td>
@@ -31,4 +31,9 @@
 </div>
 <div>
 </div>
-
+<!--<button class="btn btn-outline-primary" (click)="open('autofocus')">-->
+<!--  <div>Open confirm modal with `ngbAutofocus`</div>-->
+<!--  <div class="text-dark" aria-hidden="true"><small>Ok button will be focused</small></div>-->
+<!--</button>-->
+<!---->
+<!-- Button trigger modal -->

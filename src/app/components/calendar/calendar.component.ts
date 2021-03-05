@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { formatDate } from '@fullcalendar/angular';
-import {timer} from 'rxjs';
+import {Subject, timer} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
-  dates = {
-    today: formatDate(new Date(), {
-      month: 'long',
-      year: 'numeric',
-      day: 'numeric'
-    })
-  };
+export class CalendarComponent implements OnInit , OnDestroy {
+  birthday = new Date();
+  // dates = {
+  //   today: formatDate(new Date(), {
+  //     month: 'long',
+  //     year: 'numeric',
+  //     day: 'numeric'
+  //   })
+  // };
   today;
   counter = timer(0, 1000);
 
@@ -28,13 +30,17 @@ export class CalendarComponent implements OnInit {
       { title: 'event 2', date: '2022-03-30' }
     ]
   };
-
+  private unsubscribe$: Subject<any> = new Subject<any>();
   constructor() { }
 
   ngOnInit(): void {
-    this.counter.subscribe(() => {
+    this.counter.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       this.todayDate();
     });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
   }
 
   todayDate() {
@@ -43,7 +49,8 @@ export class CalendarComponent implements OnInit {
     const minute = date.getMinutes();
     const hour = date.getHours();
     this.today = hour + ':' + minute + ':' + second;
-    return 'Todays Date Is: ' + Object.values(this.dates) + ' , The Time Is: ' + this.today;
+    // return 'Todays Date Is: ' + Object.values(this.dates)
+    return ' , The Time Is: ' + this.today;
   }
 
   handleDateClick(arg) {

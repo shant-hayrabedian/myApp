@@ -56,4 +56,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
     this.cartSerive.addToCart(data).then(() => this.add = -1);
   }
+
+  public close() {
+    this.add = -1;
+  }
 }

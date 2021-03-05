@@ -1,21 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit, Type} from '@angular/core';
 import {CartService} from '../../services/cart.service';
 import {Shopping} from '../../interfaces/shopping.interface';
 import {Good} from '../../interfaces/good.interface';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
-
+export class CartComponent implements OnInit , OnDestroy {
+  private unsubscribe$: Subject<any> = new Subject<any>();
   cart: Shopping[] = [];
+  // MODALS: {[name: string]: Type<any>} = {
+  // };
 
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cartService.getCarts().subscribe(cart => {
+    this.cartService.getCarts().pipe(takeUntil(this.unsubscribe$)).subscribe(cart => {
       this.cart = cart.map(shopping => {
         return {
           id: shopping.payload.doc.id,
@@ -23,7 +28,10 @@ export class CartComponent implements OnInit {
         };
       });
     });
-    this.totalAmounts();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
   }
 
   public delete(index) {
@@ -61,4 +69,8 @@ export class CartComponent implements OnInit {
       return a + b;
     }, 0);
   }
+
+  // public open(name) {
+  //   this.modalService.open((this.MODALS)[name]);
+  // }
 }
