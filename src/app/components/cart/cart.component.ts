@@ -4,7 +4,7 @@ import {Shopping} from '../../interfaces/shopping.interface';
 import {Good} from '../../interfaces/good.interface';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ConfirmationDialogService} from '../../others/modals/confirmation-dialog.service';
 
 @Component({
   selector: 'app-cart',
@@ -14,10 +14,9 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class CartComponent implements OnInit , OnDestroy {
   private unsubscribe$: Subject<any> = new Subject<any>();
   cart: Shopping[] = [];
-  // MODALS: {[name: string]: Type<any>} = {
-  // };
 
-  constructor(private cartService: CartService) { }
+
+  constructor(private cartService: CartService, private confirmationDialogService: ConfirmationDialogService) { }
 
   ngOnInit(): void {
     this.cartService.getCarts().pipe(takeUntil(this.unsubscribe$)).subscribe(cart => {
@@ -70,7 +69,9 @@ export class CartComponent implements OnInit , OnDestroy {
     }, 0);
   }
 
-  // public open(name) {
-  //   this.modalService.open((this.MODALS)[name]);
-  // }
+  public openConfirmationDialog() {
+    this.confirmationDialogService.confirm('Please confirm.', 'Are You Sure Do You Want To Delete It ?')
+      .then((confirmed) => console.log('User confirmed:', confirmed))
+      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
 }

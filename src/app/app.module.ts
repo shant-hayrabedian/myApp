@@ -21,6 +21,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { ModalsComponent } from './others/modals/modals.component';
+import {ConfirmationDialogService} from './others/modals/confirmation-dialog.service';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -36,7 +38,8 @@ FullCalendarModule.registerPlugins([
     SignupComponent,
     NotFoundComponent,
     NavbarComponent,
-    CalendarComponent
+    CalendarComponent,
+    ModalsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,7 @@ FullCalendarModule.registerPlugins([
     }),
     FullCalendarModule
   ],
-  providers: [],
+  providers: [ConfirmationDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
