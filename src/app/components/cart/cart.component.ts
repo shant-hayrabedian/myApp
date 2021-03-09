@@ -34,7 +34,13 @@ export class CartComponent implements OnInit , OnDestroy {
   }
 
   public delete(index) {
-    this.cartService.deleteCart(this.cart[index].id);
+    // this.cartService.deleteCart(this.cart[index].id);
+    this.confirmationDialogService.confirm('Please confirm.', 'Are You Sure Do You Want To Delete It ?')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.cartService.deleteCart(this.cart[index].id);
+        }
+      });
   }
 
   public save(index) {
@@ -69,9 +75,9 @@ export class CartComponent implements OnInit , OnDestroy {
     }, 0);
   }
 
-  public openConfirmationDialog() {
-    this.confirmationDialogService.confirm('Please confirm.', 'Are You Sure Do You Want To Delete It ?')
-      .then((confirmed) => console.log('User confirmed:', confirmed))
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  }
+  // public openConfirmationDialog() {
+  //   this.confirmationDialogService.confirm('Please confirm.', 'Are You Sure Do You Want To Delete It ?')
+  //     .then((confirmed) => console.log('User confirmed:', confirmed))
+  //     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  // }
 }
